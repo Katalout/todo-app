@@ -1,10 +1,11 @@
 export class toDo {
-    constructor(title, project, description, dueDate, priority) {
+    constructor(title, project, description, dueDate, priority, uuid = crypto.randomUUID()) {
         this.title = title;
         this.project = project;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
+        this.uuid = uuid;
     }
 };
 
@@ -17,3 +18,8 @@ export function addToList(title, project, description, dueDate, priority) {
     toDoList.push(newToDo);
 };
 
+function removeFromList(uuid) {
+    let removableItemIndex = toDoList.findIndex((item) => item.uuid == uuid);
+    console.log(removableItemIndex);
+    toDoList.splice(removableItemIndex, 1);
+};

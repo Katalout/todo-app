@@ -1,3 +1,5 @@
+import { formatDistanceToNow } from "date-fns";
+
 export function displayList(list) {
     const main = document.querySelector("main");
     main.innerHTML = "";
@@ -9,12 +11,12 @@ export function displayList(list) {
         let prio = document.createElement("p");
         title.textContent = item.title;
         description.textContent = item.description;
-        dueDate.textContent = item.dueDate;
+        dueDate.textContent = `Due in ${formatDistanceToNow(item.dueDate)}.`;
+
+        // overdue? if dueDate<now, csinaljon vmit
+
         prio.textContent = item.priority;
         main.appendChild(card);
-        card.appendChild(title);
-        card.appendChild(description);
-        card.appendChild(dueDate);
-        card.appendChild(prio);
+        card.append(title, description, dueDate, prio);
     });
 }

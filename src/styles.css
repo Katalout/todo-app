@@ -86,3 +86,9 @@ label {
 input {
     font-family: 'Courier New', Courier, monospace;
 }
+
+.card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

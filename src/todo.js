@@ -18,7 +18,7 @@ export function addToList(title, project, description, dueDate, priority) {
     toDoList.push(newToDo);
 };
 
-function removeFromList(uuid) {
+export function removeFromList(uuid) {
     let removableItemIndex = toDoList.findIndex((item) => item.uuid == uuid);
     console.log(removableItemIndex);
     toDoList.splice(removableItemIndex, 1);

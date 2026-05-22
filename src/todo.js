@@ -9,6 +9,10 @@ export class toDo {
     }
 };
 
+
+
+// display projects in sidebar
+
 export const toDoList = [
     new toDo("Example", "Examples", "This is an example description", new Date("2026-06-01"), "High"),
 ];
@@ -27,4 +31,15 @@ export function removeFromList(uuid) {
 export function findToDo(uuid) {
     let todo = toDoList.find((item) => item.uuid == uuid);
     return todo;
+};
+
+// make array of projects
+export const projectList = function () {
+    let newProjectList = toDoList.reduce((arr, item) => {
+        if (!arr.includes(item.project)) {
+            arr.push(item.project);
+        }
+        return arr;
+    }, []);
+    return newProjectList;
 };

@@ -1,5 +1,5 @@
 import { formatDistanceToNow } from "date-fns";
-import { removeFromList, findToDo } from "./todo.js";
+import { removeFromList, findToDo, projectList } from "./todo.js";
 import { openDialogVersion } from "./dialog.js";
 
 export const formVersion = {
@@ -50,5 +50,15 @@ export function displayList(list) {
             formVersion.intent = item.uuid;
             openDialogVersion();
         });
+    }); displayProjectList(projectList());
+};
+
+export function displayProjectList(list) {
+    const sidebar = document.querySelector(".sidebarContent");
+    sidebar.innerHTML = "";
+    list.forEach((item) => {
+        let h2 = document.createElement("h2");
+        h2.textContent = item;
+        sidebar.appendChild(h2);
     });
-}
+};

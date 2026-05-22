@@ -1,5 +1,5 @@
-import { formatDistanceToNow } from "date-fns";
-import { removeFromList, findToDo, projectList } from "./todo.js";
+import { differenceInHours, formatDistanceToNow } from "date-fns";
+import { removeFromList, findToDo, projectList, filterByProject } from "./todo.js";
 import { openDialogVersion } from "./dialog.js";
 
 export const formVersion = {
@@ -17,7 +17,7 @@ export function displayList(list) {
         card.classList.add("card", "shadow");
         let cardcontent = document.createElement("div");
         let cardbuttons = document.createElement("div");
-        let title = document.createElement("h2");
+        let title = document.createElement("h3");
         let description = document.createElement("p");
         let dueDate = document.createElement("p");
         let prio = document.createElement("p");
@@ -60,5 +60,10 @@ export function displayProjectList(list) {
         let h2 = document.createElement("h2");
         h2.textContent = item;
         sidebar.appendChild(h2);
+        h2.addEventListener("click", () => {
+            displayList(filterByProject(item));
+        });
     });
 };
+
+export const allProjectsButton = document.querySelector("#allProjects");

@@ -43,3 +43,12 @@ export const projectList = function () {
     }, []);
     return newProjectList;
 };
+
+//how to list todos per project
+//if i click a project in the sidebar, the main updates with a filtered todolist
+
+export function filterByProject(project) {
+    let filteredList = toDoList.filter((item) =>
+        item.project == project);
+    return filteredList;
+}

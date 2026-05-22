@@ -23,3 +23,8 @@ export function removeFromList(uuid) {
     console.log(removableItemIndex);
     toDoList.splice(removableItemIndex, 1);
 };
+
+export function findToDo(uuid) {
+    let todo = toDoList.find((item) => item.uuid == uuid);
+    return todo;
+};

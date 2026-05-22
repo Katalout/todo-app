@@ -1,5 +1,13 @@
 import { formatDistanceToNow } from "date-fns";
-import { removeFromList } from "./todo.js";
+import { removeFromList, findToDo } from "./todo.js";
+import { openDialogVersion } from "./dialog.js";
+
+export const formVersion = {
+    set intent(type) {
+        this.version = type;
+    },
+    get intent() { return this.version }
+};
 
 export function displayList(list) {
     const main = document.querySelector("main");
@@ -7,7 +15,8 @@ export function displayList(list) {
     list.forEach((item) => {
         let card = document.createElement("div");
         card.classList.add("card", "shadow");
-        let leftside = document.createElement("div");
+        let cardcontent = document.createElement("div");
+        let cardbuttons = document.createElement("div");
         let title = document.createElement("h2");
         let description = document.createElement("p");
         let dueDate = document.createElement("p");
@@ -15,22 +24,31 @@ export function displayList(list) {
         title.textContent = item.title;
         description.textContent = item.description;
         dueDate.textContent = `Due in ${formatDistanceToNow(item.dueDate)}.`;
+
         let deleteButton = document.createElement("button");
         deleteButton.dataset.uuid = item.uuid;
         deleteButton.textContent = "Delete";
 
-        // overdue? if dueDate<now, csinaljon vmit
+        let editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+        editButton.dataset.uuid = item.uuid;
+        // if edit is clicked, make formversion = edit.
 
         prio.textContent = item.priority;
         main.appendChild(card);
-        card.append(leftside, deleteButton);
-        leftside.append(title, description, dueDate, prio);
+        card.append(cardcontent, cardbuttons);
+        cardcontent.append(title, description, dueDate, prio);
+        cardbuttons.append(deleteButton, editButton);
 
         deleteButton.addEventListener("click", (event) => {
             const button = event.target;
             const uuid = button.dataset.uuid;
             removeFromList(uuid);
             displayList(list);
+        });
+        editButton.addEventListener("click", () => {
+            formVersion.intent = item.uuid;
+            openDialogVersion();
         });
     });
 }

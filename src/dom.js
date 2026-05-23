@@ -1,6 +1,7 @@
 import { differenceInHours, formatDistanceToNow } from "date-fns";
-import { removeFromList, findToDo, projectList, filterByProject } from "./todo.js";
+import { removeFromList, findToDo, projectList, filterByProject, toDoList } from "./todo.js";
 import { openDialogVersion } from "./dialog.js";
+import { loadList } from "./storage.js";
 
 export const formVersion = {
     set intent(type) {
@@ -10,6 +11,8 @@ export const formVersion = {
 };
 
 export function displayList(list) {
+    console.log("displayin");
+    if (list == toDoList) loadList(list);
     const main = document.querySelector("main");
     main.innerHTML = "";
     list.forEach((item) => {
@@ -57,10 +60,10 @@ export function displayProjectList(list) {
     const sidebar = document.querySelector(".sidebarContent");
     sidebar.innerHTML = "";
     list.forEach((item) => {
-        let h2 = document.createElement("h2");
-        h2.textContent = item;
-        sidebar.appendChild(h2);
-        h2.addEventListener("click", () => {
+        let li = document.createElement("li");
+        li.textContent = item;
+        sidebar.appendChild(li);
+        li.addEventListener("click", () => {
             displayList(filterByProject(item));
         });
     });

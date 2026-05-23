@@ -1,6 +1,7 @@
 import { addToList, toDoList, findToDo } from "./todo.js";
 import { displayList, formVersion } from "./dom.js";
 import { format } from "date-fns";
+import { store, loadList } from "./storage.js";
 
 export const addButton = document.querySelector("#addButton");
 const dialog = document.querySelector("dialog");
@@ -52,6 +53,7 @@ export function openDialogVersion() {
         } else {
             editable = findToDo(formVersion.intent);
             console.log("submitting", editable); submitEdit(editable);
+            store(toDoList);
         }
         displayList(toDoList);
         console.log(toDoList);
